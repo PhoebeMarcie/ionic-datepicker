@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Ionic Date time</ion-title>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="selectedMode" scrollable>
+<ion-segment-button [value]="mode" *ngFor="let mode of modes">
+<ion-label>{{mode}}</ion-label>
+</ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+<!-- <ion-datetime [presentation]="selectedMode"></ion-datetime> -->
+<ion-item (click)="showPicker =!showPicker" >
+  <ion-label>Date</ion-label>
+  <ion-text slot="start">{{formattedString}} </ion-text>
+</ion-item>
+<ion-datetime mode="ios" #dateTime *ngIf="showPicker" [value]="dateValue" size="cover"
+(ionChange) ="dateChanged(dateTime.value)" showDefaultButtons="true" (ionCancel)="showPicker = false;"
+></ion-datetime>
+
+<ion-item id="open-modal">
+  <ion-icon name="calendar-outline" slot="end" color="primary"></ion-icon>
+  <ion-label>Pick date</ion-label>
+  <ion-text slot="end">{{formattedString}}</ion-text>
+</ion-item>
+
+<ion-modal trigger="open-modal">
+<ng-template>
+  <ion-content>
+    <ion-datetime mode="ios" #dateTime  [value]="dateValue" size="cover"
+(ionChange) ="dateChanged(dateTime.value)" showDefaultButtons="true" (ionCancel)="showPicker = false;"
+></ion-datetime>
+  </ion-content>
+</ng-template>
+</ion-modal>
+
+</ion-content>
+<!-- <ion-content>
+  <ion-item id="open-modal">
+    <ion-icon name="calendar-outline" slot="end" color="primary"></ion-icon>
+    <ion-label>Pick date</ion-label>
+    <ion-text slot="end">{{formattedString}}</ion-text>
+  </ion-item>
+
+  <ion-modal trigger="open-modal">
+  <ng-template>
+    <ion-content>
+      <ion-datetime mode="ios" #dateTime  [value]="dateValue" size="cover"
+  (ionChange) ="dateChanged(dateTime.value)"(ionCancel)="showPicker = false;"
+
+  >
+<ion-buttons slot="buttons">
+  <ion-button (click)="close()">
+Dismiss
+  </ion-button>
+<ion-button (click)="select()">
+Select
+</ion-button>
+
+</ion-buttons></ion-datetime>
+    </ion-content>
+  </ng-template>
+  </ion-modal>
+</ion-content> -->
